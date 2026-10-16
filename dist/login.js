@@ -2,6 +2,6 @@
 const open=()=>{dialog.showModal();setTimeout(()=>identity.focus(),0)};const close=()=>{dialog.close();message.textContent=''};
 openButton.addEventListener('click',open);dialog.querySelector('.login-close').addEventListener('click',close);dialog.addEventListener('click',event=>{if(event.target===dialog){const rect=dialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)close()}});
 document.querySelector('#login-password-toggle').addEventListener('click',event=>{const show=password.type==='password';password.type=show?'text':'password';event.currentTarget.textContent=show?'隐藏':'显示'});
-dialog.querySelector('.text-button').addEventListener('click',()=>{message.textContent='密码重置功能将在会员系统开放后提供。'});
+dialog.querySelector('.text-button').addEventListener('click',()=>{window.location.href='forgot-password.html'});
 form.addEventListener('submit',event=>{event.preventDefault();if(!identity.value.trim()||!password.value){message.textContent='请输入用户名或邮箱及密码。';return}let member=null;try{member=JSON.parse(localStorage.getItem('yunxiang-member')||'null')}catch{}if(member&&identity.value.trim()!==member.username&&identity.value.trim()!==member.email){message.textContent='未找到该本地演示账户，请检查输入或先注册。';return}openButton.textContent=member?.username||'已登录';openButton.classList.add('logged-in');close()});
 if(new URLSearchParams(location.search).get('login')==='1'&&!document.body.classList.contains('disclaimer-open'))open();})();
